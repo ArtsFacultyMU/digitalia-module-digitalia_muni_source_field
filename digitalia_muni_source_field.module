@@ -1,0 +1,84 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for digitalia_muni_source_field module.
+ *
+ * @DCG
+ * This file is no longer required in Drupal 8.
+ * @see https://www.drupal.org/node/2217931
+ */
+
+function digitalia_muni_source_field_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  $forms = ['node_cinema_form', 'node_cinema_edit_form', 'node_film_form', 'node_film_edit_form', 'node_programme_form', 'node_programme_edit_form', 'node_number_form', 'node_number_edit_form'];
+
+  if (in_array($form_id, $forms)) {
+
+    $help_text = '';
+    $help_path = 'modules/custom/digitalia_muni_source_field/help.txt';
+    $help_handle = fopen($help_path, 'r');
+
+    if (file_exists($help_path)) {
+      if ($help_handle) {
+        $help_text = fread($help_handle, filesize($help_path));
+        $help_html = '<div id="openhint" onClick="showHelpText()">Open help</div><div id="help_text">'.$help_text.'</div><div id="closehint" onClick="hideHelpText()">Close help</div>';
+        $form['title']['widget'][0]['value']['#description'] = $help_html;
+//        $form['#attached']['js'][] = \Drupal::service('extension.list.theme')->getPath('islandora_muni') . 'platform_specific/js/admin.js';
+        $form['#attached']['library'][] = "digitalia_muni_source_field/help_hide_and_show";
+        fclose($help_handle);
+      }
+    }
+
+    $form['actions']['submit']['#submit'][] = 'digitalia_muni_source_field_submit_handler';
+
+    foreach ($form as $key => $element) {
+      if (strpos($key, "field_") === 0) {
+
+        $weight = $element['#weight'];
+        $title = $element['widget']['#title'];
+
+        $form['source_'.$key] = [
+          '#type' => 'container',
+          '#title' => t('Source').' ('.$title.')',
+          '#attributes' => ['class' => ['source-'.$key]],
+          '#weight' => $weight,
+          '#tree' => TRUE,
+        ];
+
+        $form['source_'.$key]['source'] = array(
+          '#type' => 'textarea',
+          '#title' => t('Source'),
+          '#rows' => 1,
+          '#description' => "Input data in format: source§date§note§confidence or value==source§date§note§confidence.",
+        );
+      }
+    }
+
+    $node = $form_state->getFormObject()->getEntity();
+    $sources = $node->get('field_sources')->getValue();
+
+    foreach ($sources as $source) {
+      if (isset($source['first'])) {
+        $container = 'source_'.$source['first'];
+        if (isset($form[$container]['source']['#default_value'])) {
+          $form[$container]['source']['#default_value'] = $form[$container]['source']['#default_value']."\n".$source['second'];
+        } else {
+          $form[$container]['source']['#default_value'] = $source['second'];
+        }
+      }
+    }
+  }
+}
+
+function digitalia_muni_source_field_submit_handler(&$form, &$form_state) {
+  $submitted_values = $form_state->cleanValues()->getValues();
+  $node = $form_state->getFormObject()->getEntity();
+  $node->set('field_sources', []);
+  foreach ($submitted_values as $key => $value) {
+    if (strpos($key, "source_") === 0 and $value['source']) {
+      $field = substr($key, 7);
+      $node->field_sources[] = ['first' => $field, 'second'=> $value['source']];
+    }
+  }
+  $node->save();
+}

@@ -1,0 +1,35 @@
+#edit-title-0-value--description {
+  position: fixed;
+  border: 2px solid black;
+  padding: 0px;
+  height: auto;
+  width: 25rem;
+  right: 5px;
+  bottom: 20px;
+  z-index: 99;
+  background-color: white;
+}
+
+#edit-title-0-value--description td { 
+  background-color: white; 
+  height: auto; 
+  padding: 0 0.3rem; 
+} 
+
+#help_text {
+  display: none;
+}
+
+#openhint, #closehint {
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 1rem;
+  background-color: LightGreen;
+  display: block;
+  cursor: pointer;
+  padding: .3rem;
+}
+
+#closehint {
+  display: none;
+}

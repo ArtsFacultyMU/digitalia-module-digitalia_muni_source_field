@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for digitalia_muni_source_field module.
+ *
+ * @DCG
+ * This file is no longer required in Drupal 8.
+ * @see https://www.drupal.org/node/2217931
+ */
+
+function digitalia_muni_source_field_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if ($form_id == 'node_cinema_edit_form') {
+
+    $form['field_district']['widget'][0]['value']['#ajax'] = [
+      'callback' => 'digitalia_muni_source_field_add_field',
+      'wrapper' => 'your_wrapper_id', // Replace with the ID of the element you want to update.
+    ];
+
+    foreach ($form as $key => $element) {
+      if (strpos($key, "field_") === 0) {
+
+        $weight = $element['#weight'];
+
+        $form[$key.'_container'] = [
+          '#type' => 'container',
+          '#attributes' => ['class' => [$key.'-container']],
+          '#weight' => $weight,
+        ];
+
+        $count = 0;
+
+        foreach ($element['widget'] as $index => $value) {
+          if (is_numeric($index)) {
+
+            $form[$key.'_container'][$key.'#'.$index] = array(
+              '#type' => 'textfield',
+              '#title' => t('source'),
+            );
+
+            $count += 1;
+          }
+        }
+
+        if ($form[$key]['widget']['#cardinality_multiple'] == 1) {
+          
+          $form[$key.'_container']['add_more'] = [
+            '#name' => $key,
+            '#type' => 'submit',
+            '#value' => t('Add more'),
+            '#submit' => ['addOne'],
+            '#ajax' => [
+              'callback' => 'addmoreCallback',
+              'wrapper' => $key.'-container',
+            ],
+          ];
+        }
+      }
+    }
+  }
+}
+
+
+function addmoreCallback(&$form, Drupal\Core\Form\FormStateInterface &$form_state) {
+  $key = $form_state->getTriggeringElement()['#name'];
+  \Drupal::logger('module')->notice('addmoreCallback'.$key);
+  $form[$key.'_container'][$key.'#3'] = array(
+    '#type' => 'textfield',
+    '#title' => t('source'),
+  );
+
+  return $form[$key.'_container'];
+}
+
+function addOne(array &$form, Drupal\Core\Form\FormStateInterface $form_state) {
+  $key = $form_state->getTriggeringElement()['#name'];
+  \Drupal::logger('module')->notice('addOne'.$key);
+  $form[$key.'_container'][$key.'#3'] = array(
+    '#type' => 'textfield',
+    '#title' => t('source'),
+  );
+  $form_state->setRebuild();
+}

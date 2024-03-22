@@ -1,0 +1,7 @@
+help_hide_and_show:
+  version: 1.x
+  css:
+    theme:
+      css/help_hide_and_show.css: {}
+  js:
+    js/help_hide_and_show.js: {}
