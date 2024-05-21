@@ -17,15 +17,15 @@ function digitalia_muni_source_field_form_alter(&$form, \Drupal\Core\Form\FormSt
     $help_text = '';
     $help_path = 'modules/custom/digitalia_muni_source_field/help.txt';
     $help_handle = fopen($help_path, 'r');
-    $add_lib = false;
-  
+
     if (file_exists($help_path)) {
       if ($help_handle) {
         $help_text = fread($help_handle, filesize($help_path));
-        $help_html = '<div id="open_abbrev">Open the list of abbreviation</div><div id="abbrev_text">'.$help_text.'</div><div id="close_abbrev">Close the list of abbreviation</div>';
-        $help_complete = $help_html;
+        $help_html = '<div id="openhint" onClick="showHelpText()">Open help</div><div id="help_text">'.$help_text.'</div><div id="closehint" onClick="hideHelpText()">Close help</div>';
+        $form['title']['widget'][0]['value']['#description'] = $help_html;
+//        $form['#attached']['js'][] = \Drupal::service('extension.list.theme')->getPath('islandora_muni') . 'platform_specific/js/admin.js';
+        $form['#attached']['library'][] = "digitalia_muni_source_field/help_hide_and_show";
         fclose($help_handle);
-        $add_lib = true;
       }
     }
 
@@ -33,21 +33,16 @@ function digitalia_muni_source_field_form_alter(&$form, \Drupal\Core\Form\FormSt
     $sources_path = 'modules/custom/digitalia_muni_source_field/sources.txt';
     $sources_handle = fopen($sources_path, 'r');
 
-    if (file_exists($sources_path)) {
-      if ($sources_handle) {
-        $sources_text = fread($sources_handle, filesize($sources_path));
-        $sources_html = '<div id="open_source">Help for source format</div><div id="source_text">'.$sources_text.'</div><div id="close_source">Close source help</div>';
-        $help_complete = $help_complete.$sources_html;
-        fclose($sources_handle);
-        $add_lib = true;
+    if (file_exists($_path)) {
+      if ($help_hanle) {
+        $help_text = fread($help_handle, filesize($help_path));
+        $help_html = '<div id="openhint" onClick="showHelpText()">Open help</div><div id="help_text">'.$help_text.'</div><div id="clos>
+        $form['title']['widget'][0]['value']['#description'] = $help_html;
+//        $form['#attached']['js'][] = \Drupal::service('extension.list.theme')->getPath('islandora_muni') . 'platform_specific/js/adm>
+        $form['#attached']['library'][] = "digitalia_muni_source_field/help_hide_and_show";
+        fclose($help_handle);
       }
     }
-
-    if ($add_lib) {
-      $form['#attached']['library'][] = "digitalia_muni_source_field/help_hide_and_show";
-    }
-
-    $form['title']['widget'][0]['value']['#description'] = $help_complete;
 
     $form['actions']['submit']['#submit'][] = 'digitalia_muni_source_field_submit_handler';
 
@@ -69,7 +64,7 @@ function digitalia_muni_source_field_form_alter(&$form, \Drupal\Core\Form\FormSt
           '#type' => 'textarea',
           '#title' => t('Source'),
           '#rows' => 1,
-          '#description' => "Input data in format: {source_abbreviation§date§note§confidence} or {value==source_abbreviation§date§note§confidence}. For more information consult the green help; for list of source abbreviations consult the yellow help.",
+          '#description' => "Input data in format: source§date§note§confidence or value==source§date§note§confidence.",
         );
       }
     }

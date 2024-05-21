@@ -16,20 +16,33 @@
   padding: 0 0.3rem; 
 } 
 
-#help_text {
+#abbrev_text, #source_text {
   display: none;
 }
 
-#openhint, #closehint {
+#open_abbrev, #open_source, #close_abbrev, #close_source {
   text-decoration: underline;
   font-weight: bold;
   font-size: 1rem;
-  background-color: LightGreen;
   display: block;
   cursor: pointer;
   padding: .3rem;
 }
 
-#closehint {
+#open_abbrev, #close_abbrev {
+  background-color: yellow;
+  border-bottom: 1px solid black;
+}
+
+
+#open_source, #close_source {
+  background-color: lightgreen;
+  border-top: 1px solid black;
+}
+
+
+#close_abbrev, #close_source {
   display: none;
 }
+
+
