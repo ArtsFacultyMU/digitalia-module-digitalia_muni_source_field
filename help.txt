@@ -1,2 +1,132 @@
-<p>Input data in format: {source_abbreviation&sect;date&sect;note&sect;confidence}<br />For {source_abbreviation} use the four-letter abbreviation according the table in yellow help (for example: AAMN or DCRO).<br />For {date} use periodical publication date in the YYYY-MM-DD format (for example: 1930-11-28).<br />For {note} use periodical number (for example: 279)<br />For {confidence} use the number from 0 to 100 (for example: 75)<br />Use string &sect; as a separator of each segment (even if no value is inserted)</p>
-<p>Examples:<br />AAMB&sect;&sect;&sect;85<br />DDVO&sect;1930-11-28&sect;279&sect;100<br /><br />If the field contains repeated values, use the concrete value in the beginning of the record and separate it from other information by double equation {==}. Put each item on a new line. Example:<br /><br />Filmoperette==DDVO&sect;1930-11-28&sect;279&sect;100<br />Znamenit&aacute; fra&scaron;ka==DCLN&sect;1930-12-02&sect;607&sect;100</p>
+<table class="source_help">
+  <tbody>
+    <tr>
+      <td>AAMB</td>
+      <td>Archiv města Brna</td>
+    </tr>
+    <tr>
+      <td>AAMN</td>
+      <td>Archiv města Brna, fond T68, Václav Novák, Historie brněnských kinematografů 1896–1981. (Rukopis).</td>
+    </tr>
+    <tr>
+      <td>AMGL</td>
+      <td>Foto Jan Lauschmann, Konstrukce, 1930, MG11434</td>
+    </tr>
+    <tr>
+      <td>AMMB</td>
+      <td>Muzeum města Brna</td>
+    </tr>
+    <tr>
+      <td>AMZB</td>
+      <td>Moravský zemský archiv, fond B251 ÚŘP, k. 173, sign. 1266</td>
+    </tr>
+    <tr>
+      <td>ASSF</td>
+      <td>Soukromá sbírka ing. Vladimíra Filipa, pohlednice</td>
+    </tr>
+    <tr>
+      <td>DCBN</td>
+      <td>Brněnské noviny</td>
+    </tr>
+    <tr>
+      <td>DCCI</td>
+      <td>Čin</td>
+    </tr>
+    <tr>
+      <td>DCDE</td>
+      <td>Den</td>
+    </tr>
+    <tr>
+      <td>DCLD</td>
+      <td>Lidová demokracie</td>
+    </tr>
+    <tr>
+      <td>DCLN</td>
+      <td>Lidové noviny</td>
+    </tr>
+    <tr>
+      <td>DCLO</td>
+      <td>Lidová obroda</td>
+    </tr>
+    <tr>
+      <td>DCMN</td>
+      <td>Moravské noviny</td>
+    </tr>
+    <tr>
+      <td>DCMS</td>
+      <td>Moravské slovo</td>
+    </tr>
+    <tr>
+      <td>DCNO</td>
+      <td>Národní obroda</td>
+    </tr>
+    <tr>
+      <td>DCNR</td>
+      <td>Nová republika</td>
+    </tr>
+    <tr>
+      <td>DCON</td>
+      <td>Občanské noviny</td>
+    </tr>
+    <tr>
+      <td>DCRO</td>
+      <td>Rovnost</td>
+    </tr>
+    <tr>
+      <td>DCRP</td>
+      <td>Rudé právo</td>
+    </tr>
+    <tr>
+      <td>DCSB</td>
+      <td>Socialistická budoucnost</td>
+    </tr>
+    <tr>
+      <td>DCSE</td>
+      <td>Socialistická budoucnost. Večerník</td>
+    </tr>
+    <tr>
+      <td>DCSV</td>
+      <td>Svoboda</td>
+    </tr>
+    <tr>
+      <td>DDBA</td>
+      <td>Brünner Abendblatt</td>
+    </tr>
+    <tr>
+      <td>DDBM</td>
+      <td>Brünner Montagsblatt</td>
+    </tr>
+    <tr>
+      <td>DDMT</td>
+      <td>Mährisches Tagblatt</td>
+    </tr>
+    <tr>
+      <td>DDSU</td>
+      <td>Südmährerblatt</td>
+    </tr>
+    <tr>
+      <td>DDTM</td>
+      <td>Tagesbote aus Mähren und Schlesien</td>
+    </tr>
+    <tr>
+      <td>DDVO</td>
+      <td>Volksfreund</td>
+    </tr>
+    <tr>
+      <td>MDMB</td>
+      <td>Dějiny města Brna. II. díl. Brno: Blok 1973.</td>
+    </tr>
+    <tr>
+      <td>MONB</td>
+      <td>O nové Brno. Brněnská architektura 1919-1939. Brno: Muzeum města Brna 2000.</td>
+    </tr>
+    <tr>
+      <td>POVZ</td>
+      <td>Obecní věstník zemského hlavního města Brna</td>
+    </tr>
+    <tr>
+      <td>WIMD</td>
+      <td>IMDb</td>
+    </tr>
+  </tbody>
+</table>

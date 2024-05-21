@@ -16,6 +16,10 @@
   padding: 0 0.3rem; 
 } 
 
+#source_text {
+  padding: .3rem;
+}
+
 #abbrev_text, #source_text {
   display: none;
 }
